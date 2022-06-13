@@ -1,0 +1,31 @@
+name: Helm lint action
+description: A composite action that runs helm lint.
+
+inputs:
+  path:
+    required: false
+    description: The path to the Helm chart. Defaults to infra/helm/<repo-name>.
+
+runs:
+  using: "composite"
+  steps:
+  - name: Set up Helm
+    uses: azure/setup-helm@v1
+    with:
+      version: v3.9.0
+  - name: Set chart path
+    id: chart-path
+    shell: bash
+    run: |
+      if [ ${{ inputs.path }} != '' ]; then
+        echo "::set-output name=path::${{ inputs.path }}"
+      else
+        echo "::set-output name=path::${${{ github.repository }}/*\//}"
+      fi
+  - name: Lint Helm chart
+    shell: bash
+    run: |
+      helm dep build ${{ steps.chart-path.path }}
+      for e in dev prod stage; do
+        helm lint ${{ steps.chart-path.path }} --set environment=$e,cluster=foo-$e
+      done
