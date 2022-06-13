@@ -50,6 +50,6 @@ runs:
     shell: bash
     run: |
       aws ecr get-login-password \
-           --region ${{ inputs.ecr-region }} | helm registry login \
+           --region us-east-2 | helm registry login \
            --username AWS \
-           --password-stdin ${{ inputs.ecr-account-id }}.dkr.ecr.${{ inputs.ecr-region }}.amazonaws.com
+           --password-stdin ${{ inputs.shared-account-id }}.dkr.ecr.us-east-2.amazonaws.com
