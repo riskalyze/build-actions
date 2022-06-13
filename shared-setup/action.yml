@@ -1,5 +1,5 @@
 name: Shared setup action
-description: A composite action that logs in to Shared AWS resources (ECR, CodeArtifact) and sets up common build tools (Helm, chart linting).
+description: A composite action that logs in to Shared AWS resources (ECR, CodeArtifact) and sets up common build tools such as Helm.
 
 inputs:
   shared-account-id:
@@ -21,12 +21,6 @@ runs:
     uses: azure/setup-helm@v1
     with:
       version: v3.9.0
-  - name: Set up Python # This is needed for chart-testing
-    uses: actions/setup-python@v2
-    with:
-      python-version: 3.7
-  - name: Set up chart-testing
-    uses: helm/chart-testing-action@v2.2.1
   - name: Assume role
     uses: aws-actions/configure-aws-credentials@v1
     with:
