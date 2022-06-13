@@ -16,7 +16,8 @@ runs:
       if [[ -n "${{ inputs.path }}" ]]; then
         echo "::set-output name=path::${{ inputs.path }}"
       else
-        echo "::set-output name=path::infra/helm/${${{ github.repository }}/*\//}"
+        repo=${{ github.repository }}
+        echo "::set-output name=path::infra/helm/${repo/*\//}"
       fi
   - name: Lint Helm chart
     shell: bash
