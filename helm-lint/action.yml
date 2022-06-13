@@ -21,7 +21,7 @@ runs:
   - name: Lint Helm chart
     shell: bash
     run: |
-      helm dep build ${{ steps.chart-path.path }}
+      helm dep build ${{ steps.chart-path.outputs.path }}
       for e in dev prod stage; do
-        helm lint ${{ steps.chart-path.path }} --set environment=$e,cluster=foo-$e
+        helm lint ${{ steps.chart-path.outputs.path }} --set environment=$e,cluster=foo-$e
       done
