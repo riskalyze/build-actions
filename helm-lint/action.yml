@@ -13,10 +13,10 @@ runs:
     id: chart-path
     shell: bash
     run: |
-      if [[ ${{ inputs.path }} != '' ]]; then
-        echo "::set-output name=path::${{ inputs.path }}"
-      else
+      if [[ -z "${{ inputs.path }}" ]]; then
         echo "::set-output name=path::${${{ github.repository }}/*\//}"
+      else
+        echo "::set-output name=path::${{ inputs.path }}"
       fi
   - name: Lint Helm chart
     shell: bash
