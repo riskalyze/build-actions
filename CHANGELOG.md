@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/riskalyze/build-actions/compare/v1.2.0...v1.3.0) (2022-06-16)
+
+
+### Features
+
+* Add codeartifact-npm-login ([87042ae](https://github.com/riskalyze/build-actions/commit/87042ae1aa55bc3f8ad84c90a5e20cc2852b1868))
+
 ## [1.2.0](https://github.com/riskalyze/build-actions/compare/v1.1.0...v1.2.0) (2022-06-16)
 
 
