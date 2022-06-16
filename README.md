@@ -4,6 +4,10 @@ A collection of GitHub actions for build workflows.
 
 ## Overview
 
+### `codeartifact-npm-login`
+
+An action that logs in to AWS CodeArtifact for fetching private npm modules.
+
 ### `ecr-build-push`
 
 An action that builds and pushes a Dockerfile to the shared ECR registry. 
