@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/riskalyze/build-actions/compare/v1.1.0...v1.2.0) (2022-06-16)
+
+
+### Features
+
+* Add ECR build-push action ([c70767f](https://github.com/riskalyze/build-actions/commit/c70767f408f4982935735c160e66b619fe1999c2))
+
 ## [1.1.0](https://github.com/riskalyze/build-actions/compare/v1.0.0...v1.1.0) (2022-06-13)
 
 
