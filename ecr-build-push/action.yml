@@ -2,31 +2,29 @@ name: ECR build and push action
 description: Builds and pushes Docker images to ECR
 
 inputs:
-  codeartifact-domain-owner:
-    description: The Codeartifact domain owner.
-    required: false
-  codeartifact-role-arn:
-    description: A role to assume for authenticating with Codeartifact.
-    required: false
   ecr-lifecycle-policy:
     description: JSON lifecycle policy to apply to the ECR repo.
     required: false
-  ecr-region:
-    description: The region to use for ECR.
-    required: true
   ecr-repo-name:
     description: The ECR repo name to use. If none is given, it defaults to "app/<github-repo-name>".
     required: false
   ecr-repo-policy:
     description: JSON policy to apply to the ECR repo.
     required: false
-  ecr-role-arn:
-    description: A role to assume for pulling packages from Codeartifact and publishing to ECR.
-    required: true
   path:
     description: The path to the Dockerfile.
     required: false
     default: .
+  shared-account-id:
+    description: The shared account's AWS account ID.
+    required: true
+  shared-region:
+    description: The region for the shared account.
+    required: false
+    default: us-east-2
+  shared-role-arn:
+    description: The IAM role ARN to assume in the shared account.
+    required: true
 
 outputs:
   ecr-repo-name:
@@ -42,8 +40,8 @@ runs:
   - name: Assume ECR role
     uses: aws-actions/configure-aws-credentials@v1
     with:
-      aws-region: ${{ inputs.ecr-region }}
-      role-to-assume: ${{ inputs.ecr-role-arn }}
+      aws-region: ${{ inputs.shared-region }}
+      role-to-assume: ${{ inputs.shared-role-arn }}
   - name: Login to Amazon ECR
     id: login-ecr
     uses: aws-actions/amazon-ecr-login@v1
@@ -72,12 +70,11 @@ runs:
       lifecycle-policy: ${{ inputs.ecr-lifecycle-policy }}
       repository-policy: ${{ inputs.ecr-repo-policy }}
   - name: Login to Codeartifact
-    if: inputs.codeartifact-role-arn != ''
     id: codeartifact-auth
     uses: riskalyze/build-actions/codeartifact-npm-login@v1
     with:
-      domain-owner: ${{ inputs.codeartifact-domain-owner }}
-      role-arn: ${{ inputs.codeartifact-role-arn }}
+      domain-owner: ${{ inputs.shared-account-id }}
+      role-arn: ${{ inputs.shared-role-arn }}
   - name: Set up Docker Buildx
     uses: docker/setup-buildx-action@v2
   - name: Build and push
