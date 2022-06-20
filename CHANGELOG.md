@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.1](https://github.com/riskalyze/build-actions/compare/v1.3.0...v1.3.1) (2022-06-16)
+
+
+### Bug Fixes
+
+* Use build-actions for codeartifact-npm-login ([bc1c87e](https://github.com/riskalyze/build-actions/commit/bc1c87ebdb700c61251841ad05bda61ed324f669))
+
 ## [1.3.0](https://github.com/riskalyze/build-actions/compare/v1.2.0...v1.3.0) (2022-06-16)
 
 
