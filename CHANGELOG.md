@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/riskalyze/build-actions/compare/v2.1.1...v2.1.2) (2022-06-21)
+
+
+### Bug Fixes
+
+* **ecr-jib-build-push:** quieter mvn output ([03e18e7](https://github.com/riskalyze/build-actions/commit/03e18e78272cc3b902e6800e993f95268f2b3594))
+
 ## [2.1.1](https://github.com/riskalyze/build-actions/compare/v2.1.0...v2.1.1) (2022-06-21)
 
 
