@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/riskalyze/build-actions/compare/v1.3.1...v2.0.0) (2022-06-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Use shared- inputs instead of separate ECR/Codeartifact inputs
+
+### Code Refactoring
+
+* Use shared- inputs instead of separate ECR/Codeartifact inputs ([068940d](https://github.com/riskalyze/build-actions/commit/068940de8d5ec24a9cb99bf3bf79319f1db4bb0a))
+
 ## [1.3.1](https://github.com/riskalyze/build-actions/compare/v1.3.0...v1.3.1) (2022-06-16)
 
 
