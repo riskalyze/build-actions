@@ -84,7 +84,7 @@ runs:
       repository-policy: ${{ inputs.ecr-repo-policy }}
   - name: Login to Codeartifact
     id: codeartifact-auth
-    uses: riskalyze/build-actions/codeartifact-maven-login@main
+    uses: riskalyze/build-actions/codeartifact-maven-login@v2
     with:
       domain-owner: ${{ inputs.shared-account-id }}
       role-arn: ${{ inputs.shared-role-arn }}
