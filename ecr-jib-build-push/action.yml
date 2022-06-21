@@ -94,6 +94,7 @@ runs:
     working-directory: ${{ inputs.path }}
     run: |
       mvn compile jib:build \
+        --no-transfer-progress \
         -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
@@ -104,6 +105,7 @@ runs:
     working-directory: ${{ inputs.path }}
     run: |
       mvn compile jib:build@dev \
+        --no-transfer-progress \
         -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
