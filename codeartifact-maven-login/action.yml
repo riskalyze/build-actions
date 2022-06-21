@@ -1,0 +1,67 @@
+name: Codeartifact Maven login action
+description: Logs Maven in to a Codeartifact registry
+
+inputs:
+  domain:
+    description: The Codeartifact domain.
+    required: false
+    default: riskalyze
+  domain-owner:
+    description: The Codeartifact domain owner.
+    required: true
+  region:
+    description: The region to use for Codeartifact.
+    required: false
+    default: us-east-2
+  repository:
+    description: The Codeartifact repository.
+    required: false
+    default: maven
+  role-arn:
+    description: A role to assume for authenticating with Codeartifact.
+    required: true
+
+outputs:
+  settings-xml-path:
+    description: The path to the settings.xml that was created
+    value: ${{ steps.auth.outputs.settings-xml-path }}
+
+runs:
+  using: "composite"
+  steps:
+  - name: Assume Codeartifact role
+    uses: aws-actions/configure-aws-credentials@v1
+    with:
+      aws-region: ${{ inputs.region }}
+      role-to-assume: ${{ inputs.role-arn }}
+  - name: Authenticate with CodeArtifact
+    id: auth
+    if: inputs.repository != ''
+    shell: bash
+    run: |
+      mkdir -p $HOME/.m2
+      CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{ inputs.domain }} --domain-owner ${{ inputs.domain-owner }} --query authorizationToken --output text)
+      cat <<EOF > $HOME/.m2/settings.xml
+        <profiles>
+          <profile>
+            <id>${{ inputs.domain }}-${{ inputs.repository }}</id>
+            <activation>
+              <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+              <repository>
+                <id>${{ inputs.domain }}-${{ inputs.repository }}</id>
+                <url>https://${{ inputs.domain }}-${{ inputs.domain-owner }}.d.codeartifact.${{ inputs.region }}.amazonaws.com/maven/${{ inputs.repository }}/</url>
+              </repository>
+            </repositories>
+          </profile>
+        </profiles>
+        <servers>
+          <server>
+            <id>${{ inputs.domain }}-${{ inputs.repository }}</id>
+            <username>aws</username>
+            <password>$CODEARTIFACT_AUTH_TOKEN</password>
+          </server>
+        </servers>
+      EOF
+      echo "::set-output name=settings-xml-path::$HOME/.m2/settings.xml"
