@@ -93,7 +93,7 @@ runs:
     shell: bash
     working-directory: ${{ inputs.path }}
     run: |
-      mvn jib:dockerBuild \
+      mvn clean compile jib:dockerBuild \
         -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
@@ -104,7 +104,7 @@ runs:
     shell: bash
     working-directory: ${{ inputs.path }}
     run: |
-      mvn jib:dockerBuild@dev \
+      mvn clean compile jib:dockerBuild@dev \
         -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
