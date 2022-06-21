@@ -93,20 +93,18 @@ runs:
     shell: bash
     working-directory: ${{ inputs.path }}
     run: |
-      mvn clean compile jib:dockerBuild \
+      mvn clean compile jib:build \
         -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
         -Djib.to.image=${{ steps.create-ecr-repo.outputs.repository-uri }}:${{ github.sha }}
-      docker push ${{ steps.create-ecr-repo.outputs.repository-uri }}:${{ github.sha }}
   - name: Build and push dev stage
     if: ${{ steps.context.outputs.dev-stage == 'true' && steps.context.outputs.needs-dev-build == 'true' }}
     shell: bash
     working-directory: ${{ inputs.path }}
     run: |
-      mvn clean compile jib:dockerBuild@dev \
+      mvn clean compile jib:build@dev \
         -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
         -Djib.to.image=${{ steps.create-ecr-dev-repo.outputs.repository-uri }}:${{ github.sha }}
-      docker push ${{ steps.create-ecr-dev-repo.outputs.repository-uri }}:${{ github.sha }}
