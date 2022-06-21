@@ -90,6 +90,7 @@ runs:
   - name: Build and push
     if: ${{ steps.context.outputs.needs-build == 'true' }}
     shell: bash
+    working-directory: ${{ inputs.path }}
     run: |
       mvn jib:dockerBuild \
         -Dmaven.repo.local=${{ steps.codeartifact-auth.outputs.settings-xml-path }} \
@@ -100,6 +101,7 @@ runs:
   - name: Build and push dev stage
     if: ${{ steps.context.outputs.dev-stage == 'true' && steps.context.outputs.needs-dev-build == 'true' }}
     shell: bash
+    working-directory: ${{ inputs.path }}
     run: |
       mvn jib:dockerBuild@dev \
         -Dmaven.repo.local=${{ steps.codeartifact-auth.outputs.settings-xml-path }} \
