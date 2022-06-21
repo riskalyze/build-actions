@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/riskalyze/build-actions/compare/v2.0.0...v2.1.0) (2022-06-21)
+
+
+### Features
+
+* Add codeartifact-maven-login action ([3468ef5](https://github.com/riskalyze/build-actions/commit/3468ef51db1332d79fc13aa568904a74efd6479c))
+* Add ecr-jib-build-push action ([af124b9](https://github.com/riskalyze/build-actions/commit/af124b9f39f24ebd3fa55a54abb7c9a578ceee9c))
+
 ## [2.0.0](https://github.com/riskalyze/build-actions/compare/v1.3.1...v2.0.0) (2022-06-20)
 
 
