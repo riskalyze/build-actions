@@ -45,6 +45,7 @@ runs:
   - uses: actions/checkout@v3
   - uses: actions/setup-java@v3
     with:
+      cache: 'maven'
       distribution: ${{ inputs.java-distribution }}
       java-version: ${{ inputs.java-version }}
   - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
@@ -93,6 +94,7 @@ runs:
     working-directory: ${{ inputs.path }}
     run: |
       mvn jib:dockerBuild \
+        -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
         -Djib.to.image=${{ steps.create-ecr-repo.outputs.repository-uri }}:${{ github.sha }}
@@ -103,6 +105,7 @@ runs:
     working-directory: ${{ inputs.path }}
     run: |
       mvn jib:dockerBuild@dev \
+        -Djib.console=plain \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
         -Djib.to.image=${{ steps.create-ecr-dev-repo.outputs.repository-uri }}:${{ github.sha }}
