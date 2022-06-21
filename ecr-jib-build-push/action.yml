@@ -93,7 +93,6 @@ runs:
     working-directory: ${{ inputs.path }}
     run: |
       mvn jib:dockerBuild \
-        -Dmaven.repo.local=${{ steps.codeartifact-auth.outputs.settings-xml-path }} \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
         -Djib.to.image=${{ steps.create-ecr-repo.outputs.repository-uri }}:${{ github.sha }}
@@ -104,7 +103,6 @@ runs:
     working-directory: ${{ inputs.path }}
     run: |
       mvn jib:dockerBuild@dev \
-        -Dmaven.repo.local=${{ steps.codeartifact-auth.outputs.settings-xml-path }} \
         -Djib.to.tags=${{ github.sha }} \
         -Djib.container.creationTime=USE_CURRENT_TIMESTAMP \
         -Djib.to.image=${{ steps.create-ecr-dev-repo.outputs.repository-uri }}:${{ github.sha }}

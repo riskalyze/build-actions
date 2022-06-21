@@ -42,6 +42,15 @@ runs:
       mkdir -p $HOME/.m2
       CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{ inputs.domain }} --domain-owner ${{ inputs.domain-owner }} --query authorizationToken --output text)
       cat <<EOF > $HOME/.m2/settings.xml
+      <?xml version="1.0" encoding="UTF-8"?>
+      <settings xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
+        <mirrors>
+          <mirror>
+            <id>central-secure</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+            <mirrorOf>central</mirrorOf>
+          </mirror>
+        </mirrors>
         <profiles>
           <profile>
             <id>${{ inputs.domain }}-${{ inputs.repository }}</id>
@@ -49,6 +58,10 @@ runs:
               <activeByDefault>true</activeByDefault>
             </activation>
             <repositories>
+              <repository>
+                <id>jcenter</id>
+                <url>https://jcenter.bintray.com/</url>
+              </repository>
               <repository>
                 <id>${{ inputs.domain }}-${{ inputs.repository }}</id>
                 <url>https://${{ inputs.domain }}-${{ inputs.domain-owner }}.d.codeartifact.${{ inputs.region }}.amazonaws.com/maven/${{ inputs.repository }}/</url>
@@ -63,5 +76,6 @@ runs:
             <password>$CODEARTIFACT_AUTH_TOKEN</password>
           </server>
         </servers>
+      </settings>
       EOF
       echo "::set-output name=settings-xml-path::$HOME/.m2/settings.xml"
