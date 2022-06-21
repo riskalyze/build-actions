@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/riskalyze/build-actions/compare/v2.1.0...v2.1.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* **ecr-jib-build-push:** Use v2 for codeartifact-maven-login ([9a5345f](https://github.com/riskalyze/build-actions/commit/9a5345f938ae20f3cfcfa107a46a9ff2173231d3))
+
 ## [2.1.0](https://github.com/riskalyze/build-actions/compare/v2.0.0...v2.1.0) (2022-06-21)
 
 
