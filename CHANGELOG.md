@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.3](https://github.com/riskalyze/build-actions/compare/v2.1.2...v2.1.3) (2022-07-20)
+
+
+### Bug Fixes
+
+* repository-uri not ecr-repository-uri ([8f52f1b](https://github.com/riskalyze/build-actions/commit/8f52f1b1e71192792b0823c11104b5e453108c91))
+
 ## [2.1.2](https://github.com/riskalyze/build-actions/compare/v2.1.1...v2.1.2) (2022-06-21)
 
 
