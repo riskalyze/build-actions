@@ -27,7 +27,7 @@ inputs:
     required: true
 
 outputs:
-  ecr-repository-uri:
+  ecr-repo-uri:
     description: URI of the repository, i.e. ACCOUNT.dkr.ecr.REGION.amazonaws.com/NAME
     value: ${{ steps.create-ecr-repo.outputs.repository-uri }}
   ecr-repo-name:
@@ -44,6 +44,7 @@ runs:
     uses: aws-actions/configure-aws-credentials@v1
     with:
       aws-region: ${{ inputs.shared-region }}
+      mask-aws-account-id: 'no'
       role-to-assume: ${{ inputs.shared-role-arn }}
   - name: Login to Amazon ECR
     id: login-ecr
