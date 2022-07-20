@@ -29,7 +29,7 @@ inputs:
 outputs:
   ecr-repository-uri:
     description: URI of the repository, i.e. ACCOUNT.dkr.ecr.REGION.amazonaws.com/NAME
-    value: ${{ steps.create-ecr-repo.repository-uri }}
+    value: ${{ steps.create-ecr-repo.outputs.repository-uri }}
   ecr-repo-name:
     description: The ECR repo name that was created.
     value: ${{ steps.ecr-repo-name.outputs.repo-name }}
