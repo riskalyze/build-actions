@@ -54,6 +54,7 @@ runs:
     uses: aws-actions/configure-aws-credentials@v1
     with:
       aws-region: ${{ inputs.shared-region }}
+      mask-aws-account-id: 'no'
       role-to-assume: ${{ inputs.shared-role-arn }}
   - name: Login to Amazon ECR
     id: login-ecr

@@ -75,7 +75,7 @@ runs:
       repository-policy: ${{ inputs.ecr-repo-policy }}
   - name: Login to Codeartifact
     id: codeartifact-auth
-    uses: riskalyze/build-actions/codeartifact-npm-login@v1
+    uses: riskalyze/build-actions/codeartifact-npm-login@feat/output-ecr-repository-uri
     with:
       domain-owner: ${{ inputs.shared-account-id }}
       role-arn: ${{ inputs.shared-role-arn }}
