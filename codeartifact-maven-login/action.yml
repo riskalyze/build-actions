@@ -33,6 +33,7 @@ runs:
     uses: aws-actions/configure-aws-credentials@v1
     with:
       aws-region: ${{ inputs.region }}
+      mask-aws-account-id: 'no'
       role-to-assume: ${{ inputs.role-arn }}
   - name: Authenticate with CodeArtifact
     id: auth

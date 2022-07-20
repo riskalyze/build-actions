@@ -27,6 +27,9 @@ inputs:
     required: true
 
 outputs:
+  ecr-repo-uri:
+    description: URI of the repository, i.e. ACCOUNT.dkr.ecr.REGION.amazonaws.com/NAME
+    value: ${{ steps.create-ecr-repo.outputs.repository-uri }}
   ecr-repo-name:
     description: The ECR repo name that was created.
     value: ${{ steps.ecr-repo-name.outputs.repo-name }}
@@ -41,6 +44,7 @@ runs:
     uses: aws-actions/configure-aws-credentials@v1
     with:
       aws-region: ${{ inputs.shared-region }}
+      mask-aws-account-id: 'no'
       role-to-assume: ${{ inputs.shared-role-arn }}
   - name: Login to Amazon ECR
     id: login-ecr
@@ -71,7 +75,7 @@ runs:
       repository-policy: ${{ inputs.ecr-repo-policy }}
   - name: Login to Codeartifact
     id: codeartifact-auth
-    uses: riskalyze/build-actions/codeartifact-npm-login@v1
+    uses: riskalyze/build-actions/codeartifact-npm-login@v2
     with:
       domain-owner: ${{ inputs.shared-account-id }}
       role-arn: ${{ inputs.shared-role-arn }}
