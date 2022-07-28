@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.4](https://github.com/riskalyze/build-actions/compare/v2.1.3...v2.1.4) (2022-07-28)
+
+
+### Bug Fixes
+
+* **ecr-build-push:** Compute tags in a separate step to allow adding 'latest' ([b662c36](https://github.com/riskalyze/build-actions/commit/b662c363f999f21a45e892690ede4c27ad01732e))
+
 ## [2.1.3](https://github.com/riskalyze/build-actions/compare/v2.1.2...v2.1.3) (2022-07-20)
 
 
