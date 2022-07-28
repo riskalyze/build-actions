@@ -74,9 +74,9 @@ runs:
       lifecycle-policy: ${{ inputs.ecr-lifecycle-policy }}
       repository-policy: ${{ inputs.ecr-repo-policy }}
   - name: Compute tags
-    if: ${{ steps.context.outputs.needs-build == 'true' }}
     id: tags
     env:
+      DEV_REPO_URI: ${{ steps.create-ecr-dev-repo.outputs.repository-uri }}
       REF: ${{ github.ref }}
       REPO_URI: ${{ steps.create-ecr-repo.outputs.repository-uri }}
       SHA: ${{ github.sha }}
@@ -96,7 +96,7 @@ runs:
     with:
       context: ${{ inputs.path }}
       push: true
-      tags: ${{ steps.create-ecr-repo.outputs.repository-uri }}:${{ github.sha }}
+      tags: ${{ steps.tags.outputs.tags }}
       cache-from: type=gha
       cache-to: type=gha,mode=max
       secret-files: |
@@ -107,7 +107,7 @@ runs:
     with:
       context: ${{ inputs.path }}
       push: true
-      tags: ${{ steps.create-ecr-dev-repo.outputs.repository-uri }}:${{ github.sha }}
+      tags: ${{ steps.tags.outputs.dev-tags }}
       target: dev
       cache-from: type=gha
       cache-to: type=gha,mode=max
