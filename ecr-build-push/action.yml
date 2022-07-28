@@ -73,6 +73,15 @@ runs:
       repository: ${{ steps.context.outputs.dev-repo-name }}
       lifecycle-policy: ${{ inputs.ecr-lifecycle-policy }}
       repository-policy: ${{ inputs.ecr-repo-policy }}
+  - name: Compute tags
+    if: ${{ steps.context.outputs.needs-build == 'true' }}
+    id: tags
+    env:
+      REF: ${{ github.ref }}
+      REPO_URI: ${{ steps.create-ecr-repo.outputs.repository-uri }}
+      SHA: ${{ github.sha }}
+    shell: bash
+    run: tags.sh
   - name: Login to Codeartifact
     id: codeartifact-auth
     uses: riskalyze/build-actions/codeartifact-npm-login@v2
